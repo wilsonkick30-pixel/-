@@ -3,6 +3,7 @@ import { GuestType, ScriptNode, Choice } from './types';
 
 export const IMAGES = {
   DEFAULT_STUDIO: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=800",
+  // 恢復原始圖片
   SPIRITUAL_0: "https://images.unsplash.com/photo-1528319725582-ddc0b6aabc5e?auto=format&fit=crop&q=80&w=800",
   SPIRITUAL_1: "https://images.unsplash.com/photo-1519834785169-98be25ec3f84?auto=format&fit=crop&q=80&w=800",
   ENTREPRENEUR_0: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800",
