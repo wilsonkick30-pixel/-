@@ -4,6 +4,7 @@ import { GuestType, GameState, Choice } from './types';
 import { getNextScene, getFinalTitle, IMAGES } from './scriptEngine';
 
 const App: React.FC = () => {
+  const [showTutorial, setShowTutorial] = useState(true);
   const [state, setState] = useState<GameState>({
     warmth: 50,
     chaos: 0,
@@ -85,16 +86,14 @@ const App: React.FC = () => {
     });
   };
 
-  // Helper colors using CSS variables
-  const colors = {
-    primary: 'var(--pantone-classic-blue)',
-    accent: 'var(--pantone-living-coral)',
-    text: 'var(--pantone-ink)',
-    bg: 'var(--pantone-paper)'
-  };
-
   return (
     <div className="h-screen w-full flex items-center justify-center font-sans p-0 lg:p-10 text-[20px] bg-[#F4F5F0]">
+      
+      {/* Tutorial Modal */}
+      {showTutorial && (
+        <TutorialModal onClose={() => setShowTutorial(false)} />
+      )}
+
       {/* Main Container - Card Style */}
       <div className="w-full h-full max-w-[1600px] lg:h-[92vh] bg-white lg:rounded-[2rem] shadow-[0_40px_100px_-30px_rgba(15,76,129,0.15)] overflow-hidden flex flex-col lg:flex-row border border-stone-200">
         
@@ -139,29 +138,14 @@ const App: React.FC = () => {
               <StatBar label="CENSORSHIP (消音)" value={state.bEnergy} color="bg-[#939597]" />
             </div>
 
-            {/* Instruction / Guide */}
-            <div className="mt-auto pt-8 border-t border-white/10">
-              <p className="text-xs font-bold text-[#FF6F61] uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
-                <span>●</span> Producer Guide
-              </p>
-              <div className="grid grid-cols-2 gap-y-6 gap-x-4 text-sm text-stone-200/80">
-                <div>
-                  <b className="text-white block mb-1">01. Select</b>
-                  選一位失控來賓
-                </div>
-                <div>
-                  <b className="text-white block mb-1">02. Edit</b>
-                  用專業馴服歪理
-                </div>
-                <div>
-                  <b className="text-white block mb-1">03. Control</b>
-                  守護頻道的優雅
-                </div>
-                <div>
-                  <b className="text-white block mb-1">04. Result</b>
-                  獲得節目定位
-                </div>
-              </div>
+            {/* Mini Status */}
+            <div className="mt-auto pt-8 border-t border-white/10 flex justify-between items-end">
+               <div className="text-xs text-white/60">
+                 System: <span className="text-[#F5DF4D]">Online</span>
+               </div>
+               <div className="text-xs text-white/60">
+                 v2.4.0
+               </div>
             </div>
           </div>
         </div>
@@ -271,19 +255,19 @@ const App: React.FC = () => {
             {state.phase === 'RESULT' && (
               <div className="max-w-3xl mx-auto w-full my-auto text-center space-y-16 animate-in zoom-in-95 duration-700">
                 <div>
-                  <p className="text-xs font-bold text-[#FF6F61] uppercase tracking-[0.4em] mb-6">Production Complete</p>
+                  <p className="text-xs font-bold text-[#FF6F61] uppercase tracking-[0.4em] mb-6">Podcast Production Complete</p>
                   <h2 className="text-5xl lg:text-7xl serif font-black text-[#0F4C81] mb-6">錄音後製完成</h2>
                   <div className="h-1 w-24 bg-[#0F4C81] mx-auto"></div>
                 </div>
 
-                <div className="bg-white p-12 lg:p-16 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] relative overflow-hidden group">
+                <div className="bg-white p-12 lg:p-16 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] relative overflow-hidden group border border-[#0F4C81]/10">
                   <div className="absolute top-0 left-0 w-2 h-full bg-[#0F4C81]"></div>
                   <p className="text-2xl lg:text-3xl font-medium text-[#2D2D2D] leading-relaxed whitespace-pre-wrap text-left relative z-10">
                     {state.finalTitle}
                   </p>
                   {/* Watermark */}
-                  <div className="absolute -bottom-10 -right-10 text-[10rem] opacity-5 serif text-[#F4F5F0] select-none pointer-events-none font-black z-0">
-                    GF
+                  <div className="absolute -bottom-10 -right-10 text-[8rem] opacity-5 serif text-[#0F4C81] select-none pointer-events-none font-black z-0">
+                    POD
                   </div>
                 </div>
                 
@@ -308,9 +292,9 @@ const App: React.FC = () => {
           </div>
 
           {/* Footer */}
-          <div className="p-6 lg:px-12 border-t border-[#939597]/20 bg-white/50 backdrop-blur text-[10px] text-[#939597] font-bold tracking-[0.2em] uppercase flex justify-between shrink-0">
-            <span>Good Family Production © 2024</span>
-            <span className="hidden sm:inline">Pantone Edition UI</span>
+          <div className="p-6 lg:px-12 border-t border-[#939597]/20 bg-white/50 backdrop-blur text-[12px] text-[#939597] font-bold tracking-[0.2em] uppercase flex justify-between shrink-0">
+            <span>好家庭聯播網 製作 © 2024</span>
+            <span className="hidden sm:inline">Good Family Podcast Network</span>
           </div>
         </div>
       </div>
@@ -319,6 +303,45 @@ const App: React.FC = () => {
 };
 
 // --- Components ---
+
+const TutorialModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
+  <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-[#0F4C81]/40 backdrop-blur-md animate-in fade-in duration-500">
+    <div className="bg-white w-full max-w-2xl rounded-[2rem] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-500 flex flex-col relative">
+      
+      {/* Decorative */}
+      <div className="h-3 w-full bg-[#FF6F61]"></div>
+      
+      <div className="p-10 lg:p-14 text-center">
+        <h3 className="serif text-3xl font-black text-[#0F4C81] mb-2">歡迎來到好家庭錄音室</h3>
+        <p className="text-xs font-bold text-[#939597] uppercase tracking-[0.3em] mb-10">Role: Executive Producer</p>
+        
+        <div className="space-y-8 text-left mb-12">
+          <div className="flex gap-6">
+             <div className="w-12 h-12 rounded-full bg-[#F4F5F0] flex items-center justify-center text-2xl shrink-0">🎙️</div>
+             <div>
+               <h4 className="font-bold text-[#2D2D2D] text-lg mb-1">您的任務</h4>
+               <p className="text-[#939597] text-base">訪談各種失控的 Podcast 來賓，將他們的荒謬言論剪輯成優雅的廣播內容。</p>
+             </div>
+          </div>
+          <div className="flex gap-6">
+             <div className="w-12 h-12 rounded-full bg-[#F4F5F0] flex items-center justify-center text-2xl shrink-0">🎚️</div>
+             <div>
+               <h4 className="font-bold text-[#2D2D2D] text-lg mb-1">控制台</h4>
+               <p className="text-[#939597] text-base">維持 <span className="text-[#FF6F61] font-bold">優雅度</span>，避免 <span className="text-[#F5DF4D] font-bold text-stone-600">混亂</span>。必要時使用消音按鈕，但小心別把整集都消音了。</p>
+             </div>
+          </div>
+        </div>
+
+        <button 
+          onClick={onClose}
+          className="w-full py-5 bg-[#0F4C81] text-white text-xl font-bold rounded-xl hover:bg-[#0a355c] transition-colors shadow-lg active:scale-[0.98]"
+        >
+          開始製作
+        </button>
+      </div>
+    </div>
+  </div>
+);
 
 const StatBar: React.FC<{ label: string, value: number, color: string }> = ({ label, value, color }) => (
   <div className="w-full space-y-2">
