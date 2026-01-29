@@ -24,15 +24,15 @@
             color: var(--pantone-ink);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            overflow: hidden;
-            height: 100vh;
+            min-height: 100vh; /* 改為 min-height 支援捲動 */
             width: 100vw;
             margin: 0;
-            letter-spacing: 0.05em; /* 增加字距提升質感 */
+            letter-spacing: 0.05em;
+            overflow-x: hidden; /* 防止水平捲動 */
         }
 
         .serif {
-            font-family: 'Shippori Mincho', serif; /* 使用更具美感的明朝體 */
+            font-family: 'Shippori Mincho', serif;
         }
 
         /* 優雅的過渡效果 */
@@ -44,13 +44,16 @@
             transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* 隱藏捲軸 */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
+        /* 隱藏捲軸 (僅針對特定區域，非全域) */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
         }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
         }
         
         /* 玻璃擬態背景 */
