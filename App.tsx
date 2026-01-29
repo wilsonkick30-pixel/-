@@ -138,13 +138,13 @@ const App: React.FC = () => {
               <StatBar label="CENSORSHIP (消音)" value={state.bEnergy} color="bg-[#939597]" />
             </div>
 
-            {/* Mini Status (Hidden on mobile to save space, or kept simple) */}
+            {/* Mini Status */}
             <div className="mt-auto pt-6 lg:pt-8 border-t border-white/10 flex justify-between items-end">
                <div className="text-[10px] lg:text-xs text-white/60">
                  System: <span className="text-[#F5DF4D]">Online</span>
                </div>
                <div className="text-[10px] lg:text-xs text-white/60">
-                 v2.6.0
+                 v2.6.5
                </div>
             </div>
           </div>
@@ -200,9 +200,9 @@ const App: React.FC = () => {
                     />
                     <GuestCard 
                       onClick={() => handleStart(GuestType.LOWEND)} 
-                      title="閒聊家" 
-                      subtitle="Observer"
-                      desc="形象最大威脅" 
+                      title="地方有力人士" 
+                      subtitle="Local Power"
+                      desc="掌控所有里民秘密" 
                       image={IMAGES.LOWEND_VIBE}
                     />
                   </div>
@@ -229,7 +229,7 @@ const App: React.FC = () => {
                 {/* Dialog Box */}
                 <div className="space-y-4 lg:space-y-6">
                   <h3 className="serif text-3xl lg:text-5xl font-black text-[#2D2D2D] leading-snug">
-                    “{state.lastResponse?.script}”
+                    「{state.lastResponse?.script}」
                   </h3>
                   <p className="text-[#939597] italic text-base lg:text-lg flex items-center gap-3">
                     <span className="text-[#FF6F61] not-italic">●</span>
@@ -382,9 +382,7 @@ const GuestCard: React.FC<{ onClick: () => void, title: string, subtitle: string
 );
 
 const ActionBtn: React.FC<{ onClick: () => void, text: string, theme: 'warm' | 'chaos' | 'neutral' }> = ({ onClick, text, theme }) => {
-  // Theme logic for subtle differences
   const borderColor = theme === 'warm' ? 'border-[#FF6F61]' : theme === 'chaos' ? 'border-[#F5DF4D]' : 'border-[#2D2D2D]';
-  const hoverBg = theme === 'warm' ? 'hover:bg-[#FF6F61] hover:text-white' : theme === 'chaos' ? 'hover:bg-[#F5DF4D] hover:text-[#2D2D2D]' : 'hover:bg-[#2D2D2D] hover:text-white';
   
   return (
     <button 

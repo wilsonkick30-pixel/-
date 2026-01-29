@@ -2,7 +2,7 @@
 export enum GuestType {
   SPIRITUAL = '靈性大師',
   ENTREPRENEUR = '新創圈金童',
-  LOWEND = '社區觀察家'
+  LOWEND = '地方有力人士'
 }
 
 export interface Impact {
