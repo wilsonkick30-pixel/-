@@ -3,46 +3,61 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>好家庭錄音室：拾光製作人</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@900&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --pantone-dark: #111827; /* Pantone 19-4005 Stargazer 變體 */
-            --pantone-bg: #FDFCFB;   /* Pantone 11-0103 Egret 變體 */
-            --pantone-amber: #D97706; /* Pantone 16-1350 Amber Glow */
-            --pantone-slate: #4B5563; /* Pantone 18-4005 Steel Gray */
+            /* Pantone Color of the Year Palette */
+            --pantone-classic-blue: #0F4C81; /* Professional, Deep */
+            --pantone-living-coral: #FF6F61; /* Vibrant, Accent */
+            --pantone-ultimate-gray: #939597; /* Neutral, Structure */
+            --pantone-illuminating: #F5DF4D; /* Energy */
+            --pantone-paper: #F4F5F0;        /* Warm Off-white Background */
+            --pantone-ink: #2D2D2D;          /* Softer Black for text */
         }
 
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background-color: var(--pantone-bg);
-            color: #1a1a1a;
+            background-color: var(--pantone-paper);
+            color: var(--pantone-ink);
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
         }
 
         .serif {
             font-family: 'Noto Serif TC', serif;
         }
 
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 5px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #d1d5db;
-            border-radius: 10px;
+        /* 優雅的過渡效果 */
+        .smooth-transition {
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .stat-bar-transition {
-            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        .stat-bar-fill {
+            transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        @media (max-width: 1024px) {
-            .hide-scrollbar::-webkit-scrollbar {
-                display: none;
-            }
+        /* 隱藏捲軸 */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* 玻璃擬態背景 */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
     </style>
 <script type="importmap">
@@ -50,7 +65,8 @@
   "imports": {
     "react": "https://esm.sh/react@^19.2.4",
     "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/"
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
   }
 }
 </script>

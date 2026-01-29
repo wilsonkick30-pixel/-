@@ -1,32 +1,38 @@
 
 export enum GuestType {
   SPIRITUAL = '靈性大師',
-  ENTREPRENEUR = '成功學霸總',
-  LOWEND = '低端閒聊家'
+  ENTREPRENEUR = '新創圈金童',
+  LOWEND = '社區觀察家'
+}
+
+export interface Impact {
+  w: number; // Warmth (優雅)
+  c: number; // Chaos (混亂)
+  b: number; // B-Energy (消音/尷尬)
 }
 
 export interface Choice {
   text: string;
-  theme: 'warm' | 'chaos' | 'neutral';
-  impact: { w: number, c: number, b: number };
+  impact: Impact;
+  theme?: 'warm' | 'chaos' | 'neutral';
 }
 
 export interface ScriptNode {
   script: string;
   reaction: string;
-  chaosDescription: string;
-  imageUrl: string;
   choices: Choice[];
+  imageUrl?: string;
+  chaosDescription?: string;
 }
 
 export interface GameState {
   warmth: number;
   chaos: number;
   bEnergy: number;
-  history: string[];
   currentGuest: GuestType | null;
   phase: 'START' | 'INTERVIEW' | 'RESULT';
   step: number;
   lastResponse?: ScriptNode;
   finalTitle?: string;
+  history?: any[];
 }

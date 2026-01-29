@@ -1,250 +1,252 @@
 
-import { GuestType, ScriptNode, Choice } from './types';
+import { GuestType, ScriptNode, Impact } from './types';
 
+// 使用 Unsplash 的高品質圖片
 export const IMAGES = {
-  DEFAULT_STUDIO: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=1000&auto=format&fit=crop",
-  START_HERO: "https://images.unsplash.com/photo-1478737270239-2fccd2c7d904?q=80&w=1000&auto=format&fit=crop",
-  SPIRITUAL: [
-    "https://images.unsplash.com/photo-1528319725582-ddc0b6aabc5e?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1519834785169-98be25ec3f84?q=80&w=800&auto=format&fit=crop"
+  // 錄音室/通用
+  DEFAULT_STUDIO: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=1200&q=80",
+  // 靈性大師 (水晶、薰香、神秘感)
+  SPIRITUAL_VIBE: "https://images.unsplash.com/photo-1600618528240-fb9fc964b853?auto=format&fit=crop&w=800&q=80",
+  // 成功霸總 (西裝、手錶、高樓)
+  ENTREPRENEUR_VIBE: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+  // 低端閒聊 (街頭、雜亂、真實)
+  LOWEND_VIBE: "https://images.unsplash.com/photo-1518558997970-4ddc236affcd?auto=format&fit=crop&w=800&q=80",
+  // 結局 (獎盃、廣播)
+  RESULT_AWARD: "https://images.unsplash.com/photo-1478737270239-2f02b77ac6d5?auto=format&fit=crop&w=1200&q=80",
+  // 混亂結局
+  RESULT_CHAOS: "https://images.unsplash.com/photo-1555861496-0666c8981751?auto=format&fit=crop&w=1200&q=80"
+};
+
+const COMMON_IMPACT: { [key: string]: Impact } = {
+  WARM: { w: 15, c: -5, b: -5 },
+  CHAOS: { w: -10, c: 20, b: 0 },
+  SILENCE: { w: -5, c: 5, b: 15 },
+  BALANCED: { w: 5, c: 5, b: 0 }
+};
+
+const SCRIPTS: Record<GuestType, ScriptNode[]> = {
+  [GuestType.SPIRITUAL]: [
+    {
+      script: "（推開耳機）我不需要戴這個，我聽得到宇宙的聲音。這邊的磁場有點濁，是不是剛剛有人在這裡吵架？",
+      reaction: "錄音師默默把耳機音量調大，翻了個白眼。",
+      imageUrl: IMAGES.SPIRITUAL_VIBE,
+      choices: [
+        { text: "「老師，為了收音品質，還是請您委屈一下戴上。」", impact: COMMON_IMPACT.WARM },
+        { text: "「那您能幫我感應一下，下一期樂透號碼嗎？」", impact: COMMON_IMPACT.CHAOS },
+        { text: "（不發一語，直接播放片頭音樂蓋過她）", impact: COMMON_IMPACT.SILENCE }
+      ]
+    },
+    {
+      script: "其實我不建議聽眾去醫院。身體的不舒服，都是靈魂在排毒。像我上次發燒到40度，我只喝了一杯在此刻被祝福過的水。",
+      reaction: "導播室的電話燈號突然瘋狂閃爍（投訴電話）。",
+      imageUrl: IMAGES.SPIRITUAL_VIBE,
+      choices: [
+        { text: "「當然，心靈的力量很重要，但現代醫學也是宇宙的恩賜嘛。」", impact: COMMON_IMPACT.WARM },
+        { text: "「水？是自來水還是礦泉水？有過濾嗎？」", impact: COMMON_IMPACT.BALANCED },
+        { text: "立刻切斷麥克風：「本台立場不代表嘉賓言論！生病請務必就醫！」", impact: COMMON_IMPACT.SILENCE }
+      ]
+    },
+    {
+      script: "我看你的氣場是紫色的，這代表你最近很焦慮，是不是感情出了問題？還是你的原生家庭...",
+      reaction: "錄音師看著你，眼神中充滿同情。",
+      imageUrl: IMAGES.SPIRITUAL_VIBE,
+      choices: [
+        { text: "「老師我們還是聊聊您的新書吧，聽眾很期待。」", impact: COMMON_IMPACT.WARM },
+        { text: "「紫色？那是我今天內褲的顏色，您真準。」", impact: COMMON_IMPACT.CHAOS },
+        { text: "微笑點頭，但心裡在想晚上的便當要吃什麼。", impact: COMMON_IMPACT.BALANCED }
+      ]
+    },
+    {
+      script: "這個錄音室的方位不對，難怪你們收聽率上不去。要在東南方擺一個九千元的水晶洞。",
+      reaction: "台長剛好經過窗外，停下腳步往裡面看。",
+      imageUrl: IMAGES.SPIRITUAL_VIBE,
+      choices: [
+        { text: "「謝謝建議，我們會參考風水大師的意見。」", impact: COMMON_IMPACT.WARM },
+        { text: "「九千？淘寶不是賣九百嗎？」", impact: COMMON_IMPACT.CHAOS },
+        { text: "「我們先進一段廣告，讓聽眾沈澱一下。」", impact: COMMON_IMPACT.SILENCE }
+      ]
+    },
+    {
+      script: "最後我想帶大家做一個集體冥想，請正在開車的聽眾閉上眼睛...",
+      reaction: "導播嚇到把咖啡噴出來。",
+      imageUrl: IMAGES.SPIRITUAL_VIBE,
+      choices: [
+        { text: "大喊：「開車的朋友請張開眼睛！！注意路況！！」", impact: COMMON_IMPACT.WARM },
+        { text: "跟著閉上眼睛，享受這片刻的寧靜（和車禍風險）。", impact: COMMON_IMPACT.CHAOS },
+        { text: "切掉麥克風，直接播放《交通安全宣導短片》。", impact: COMMON_IMPACT.SILENCE }
+      ]
+    }
   ],
-  ENTREPRENEUR: [
-    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1454165833767-027ffea10c3b?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800&auto=format&fit=crop"
+  [GuestType.ENTREPRENEUR]: [
+    {
+      script: "等一下，這個麥克風的品牌是？算了，我不期待這種傳統媒體用頂規。這段能剪掉嗎？我剛才語氣不夠像賈伯斯。",
+      reaction: "錄音師在混音盤上比了一個中指。",
+      imageUrl: IMAGES.ENTREPRENEUR_VIBE,
+      choices: [
+        { text: "「我們重視的是內容的真實性，您的聲音很有磁性。」", impact: COMMON_IMPACT.WARM },
+        { text: "「沒關係，我們會用後製幫您加上『成功人士』的濾鏡音效。」", impact: COMMON_IMPACT.CHAOS },
+        { text: "「好的，那我們重來。（並沒有在錄）」", impact: COMMON_IMPACT.SILENCE }
+      ]
+    },
+    {
+      script: "年輕人就是太計較薪水。我當年創業，一天只睡兩小時，其他時間都在思考如何改變世界。這就是狼性。",
+      reaction: "剛領完最低時薪的工讀生在角落瑟瑟發抖。",
+      imageUrl: IMAGES.ENTREPRENEUR_VIBE,
+      choices: [
+        { text: "「這份熱情確實令人敬佩，但身心健康也是一種資產吧？」", impact: COMMON_IMPACT.WARM },
+        { text: "「一天睡兩小時？難怪您看起來有點... 滄桑。」", impact: COMMON_IMPACT.CHAOS },
+        { text: "尷尬地笑：「哈哈，真的，現在年輕人太草莓了。（虛偽）」", impact: COMMON_IMPACT.BALANCED }
+      ]
+    },
+    {
+      script: "這本書裡提到的『量子區塊鏈AI賦能』，其實就是我想傳達的核心。看不懂的人，基本上已經被時代淘汰了。",
+      reaction: "你確定連他自己都不知道自己在說什麼。",
+      imageUrl: IMAGES.ENTREPRENEUR_VIBE,
+      choices: [
+        { text: "「聽起來很深奧，能用白話文舉個生活中的例子嗎？」", impact: COMMON_IMPACT.WARM },
+        { text: "「所以這跟詐騙集團的話術有什麼不同？」", impact: COMMON_IMPACT.CHAOS },
+        { text: "點頭如搗蒜：「太精闢了！這段我們一定要剪進精華！」", impact: COMMON_IMPACT.BALANCED }
+      ]
+    },
+    {
+      script: "其實我今天來，主要是想宣佈我要選立委。這個國家缺乏像我這樣的執行長思維。",
+      reaction: "導播透過耳機大叫：「不可以！這會有選罷法問題！擋住他！」",
+      imageUrl: IMAGES.ENTREPRENEUR_VIBE,
+      choices: [
+        { text: "「這真是個驚喜，不過今天我們先專注在您的創業故事。」", impact: COMMON_IMPACT.WARM },
+        { text: "「哇，那您的政見是強制大家每天只睡兩小時嗎？」", impact: COMMON_IMPACT.CHAOS },
+        { text: "強行進廣告：「好的，關於夢想，我們休息一下馬上回來。」", impact: COMMON_IMPACT.SILENCE }
+      ]
+    },
+    {
+      script: "最後，送給聽眾一句話：如果你現在還買不起房，那是因為你想要的不夠多。跟宇宙下訂單吧！",
+      reaction: "錄音室空氣凝結，所有租屋族工作人員拳頭都硬了。",
+      imageUrl: IMAGES.ENTREPRENEUR_VIBE,
+      choices: [
+        { text: "「謝謝您的分享，努力確實重要，機運也是呢。」", impact: COMMON_IMPACT.WARM },
+        { text: "「我剛下了訂單，宇宙說它缺貨。」", impact: COMMON_IMPACT.CHAOS },
+        { text: "直接拉下音推，結束這回合。", impact: COMMON_IMPACT.SILENCE }
+      ]
+    }
   ],
-  LOWEND: [
-    "https://images.unsplash.com/photo-1557425955-df376b5903c8?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1541544741938-0af808871cc0?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1473091534298-04dcbce3278c?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1594122230689-45899d9e6f69?q=80&w=800&auto=format&fit=crop"
+  [GuestType.LOWEND]: [
+    {
+      script: "（嚼口香糖）欸那個，製作人，你們這邊有便當嗎？我聽隔壁台說有雞腿便當才來的。啊對了，我剛剛在樓下好像踩到狗屎。",
+      reaction: "錄音室瀰漫著一股微妙的氣味。",
+      imageUrl: IMAGES.LOWEND_VIBE,
+      choices: [
+        { text: "「便當錄完會提供。請您先坐好，我們要注意雜音。」", impact: COMMON_IMPACT.WARM },
+        { text: "「請把鞋子脫在外面... 拜託。」", impact: COMMON_IMPACT.SILENCE },
+        { text: "「狗屎？這是一個好兆頭，代表這集會紅！」", impact: COMMON_IMPACT.CHAOS }
+      ]
+    },
+    {
+      script: "我跟你講，我家隔壁那個王太太，這兩天都沒出來倒垃圾。我懷疑她老公... 嘿嘿嘿，你知道的。",
+      reaction: "典型的未經查證八卦，最容易被告的那種。",
+      imageUrl: IMAGES.LOWEND_VIBE,
+      choices: [
+        { text: "「社區的互動真是充滿人情味。我們聊聊社區發展協會吧？」", impact: COMMON_IMPACT.WARM },
+        { text: "「我們現在是Live播出喔，王太太可能在聽。」", impact: COMMON_IMPACT.CHAOS },
+        { text: "消音按鈕準備：「哈哈，謠言止於智者嘛。」", impact: COMMON_IMPACT.SILENCE }
+      ]
+    },
+    {
+      script: "最近那個新聞說什麼缺蛋，騙人的啦！我都去後面那個...（講出違法私宰場名字），一斤才二十塊！",
+      reaction: "這要是播出去，衛生局明天就來了。",
+      imageUrl: IMAGES.LOWEND_VIBE,
+      choices: [
+        { text: "「這是您的個人經驗啦，大家還是要循正常管道購買食材喔。」", impact: COMMON_IMPACT.WARM },
+        { text: "「噓！那種店不能在廣播講，會被抄掉啦！」", impact: COMMON_IMPACT.CHAOS },
+        { text: "直接進音樂蓋掉他的聲音。", impact: COMMON_IMPACT.SILENCE }
+      ]
+    },
+    {
+      script: "（打了一個巨大的嗝）喔抱歉，剛剛喝了可樂。你們這麥克風不錯耶，連這聲音都收得這麼清楚。",
+      reaction: "錄音師看著昂貴的電容式麥克風，眼神已死。",
+      imageUrl: IMAGES.LOWEND_VIBE,
+      choices: [
+        { text: "「真性情！這就是我們節目的... 真實感。」", impact: COMMON_IMPACT.WARM },
+        { text: "「請盡量不要對著麥克風... 噴氣。」", impact: COMMON_IMPACT.SILENCE },
+        { text: "跟著打一個嗝回去：「沒事，大家都是自己人。」", impact: COMMON_IMPACT.CHAOS }
+      ]
+    },
+    {
+      script: "最後我想藉這個機會，跟那個... 前女友阿美喊話。阿美！那兩千塊不用還了！把我的摩托車鑰匙寄回來就好！",
+      reaction: "這變成了私人討債頻道。",
+      imageUrl: IMAGES.LOWEND_VIBE,
+      choices: [
+        { text: "「希望能傳達給阿美小姐。真是感人（？）的喊話。」", impact: COMMON_IMPACT.WARM },
+        { text: "「阿美！如果有在聽，鑰匙請寄到電台，我們轉交！」", impact: COMMON_IMPACT.CHAOS },
+        { text: "無情切斷：「謝謝今天的來賓，我們下次見。」", impact: COMMON_IMPACT.SILENCE }
+      ]
+    }
   ]
 };
 
-const SCRIPTS: Record<GuestType, Record<number, ScriptNode>> = {
-  [GuestType.SPIRITUAL]: {
-    0: {
-      script: "嘉賓：製作人，你這錄音室的磁場有點低迷。你的肝臟正在哀嚎，因為你長期拒絕與月亮對話。你需要這杯我親自調配的『宇宙高頻水』，洗滌你這週的業障。",
-      reaction: "錄音師看著那杯混濁的綠色液體，默默拉近了消音閘。磁場真的很亂。",
-      chaosDescription: "背景充滿不自然的低頻嗡鳴聲，麥克風開始收到莫名的數位干擾。",
-      imageUrl: IMAGES.SPIRITUAL[0],
-      choices: [
-        { text: "「修行固然重要，但家庭的和諧才是最高的頻率。我們聊聊家人？」", theme: "warm", impact: { w: 15, c: -5, b: 0 } },
-        { text: "（長按消音）「本台嚴禁推銷不明成份液體，請自重！」", theme: "chaos", impact: { w: -10, c: 20, b: 15 } },
-        { text: "「這杯水...喝下去會看到極光嗎？」", theme: "neutral", impact: { w: 5, c: 5, b: 5 } }
-      ]
-    },
-    1: {
-      script: "嘉賓：當我的靈魂在土星環上跳舞時，我領悟到了萬物的本質。你們凡人只關心收視率，卻不關心銀河系的和平。我昨晚才剛跟昂宿星人通話過。",
-      reaction: "錄音師在心裡翻白眼。昂宿星人的漫遊費應該很貴。",
-      chaosDescription: "嘉賓開始在大氣中比劃奇怪的符號，波形圖出現鋸齒狀異常。",
-      imageUrl: IMAGES.SPIRITUAL[1],
-      choices: [
-        { text: "「銀河系很遠，但今晚陪孩子說個故事，就是最近的修行。」", theme: "warm", impact: { w: 15, c: -5, b: 0 } },
-        { text: "「通話內容能提供音檔嗎？沒有的話這段我們直接跳過。」", theme: "chaos", impact: { w: -5, c: 15, b: 10 } },
-        { text: "「昂宿星人的信號是 5G 還是 6G？」", theme: "neutral", impact: { w: 5, c: 5, b: 2 } }
-      ]
-    },
-    2: {
-      script: "嘉賓：我感覺到這間錄音室的前世是一座充滿喧囂的市集。我必須拿出水晶陣來淨化，不然我們錄出來的聲音會帶有一種塵俗的燥熱味。",
-      reaction: "他在桌面上擺弄一堆尖銳的水晶，錄音師趕緊檢查桌面有沒有刮傷。",
-      chaosDescription: "麥克風收到清脆的水晶碰撞聲，背景噪訊比瞬間拉高。",
-      imageUrl: IMAGES.SPIRITUAL[2],
-      choices: [
-        { text: "「塵世的燥熱，正好可以用溫暖的嗓音來平復。讓我們回歸對話。」", theme: "warm", impact: { w: 12, c: -8, b: 0 } },
-        { text: "「水晶會反光影響監視器！快收起來，這是在錄影！」", theme: "chaos", impact: { w: -10, c: 20, b: 10 } },
-        { text: "「這顆紫水晶能幫我增加中獎運嗎？」", theme: "neutral", impact: { w: 5, c: 5, b: 2 } }
-      ]
-    },
-    3: {
-      script: "嘉賓：你知道嗎？其實我們都是光。只要你願意跟我一起唸這句『唵嘛呢叭咪吽』的變奏版，你的收視率就會跟宇宙能量共振，突破十萬點閱。",
-      reaction: "嘉賓發出奇怪的喉音震動，錄音師在調整等化器時差點按成全靜音。",
-      chaosDescription: "低音頻段發生嚴重的動態互調失真，儀表板一片通紅。",
-      imageUrl: IMAGES.SPIRITUAL[3],
-      choices: [
-        { text: "「點閱率是浮雲，聽眾能從中得到平靜才是本台的初衷。」", theme: "warm", impact: { w: 18, c: -10, b: 0 } },
-        { text: "「別唸了！這段錄音會被 YouTube 判定為宗教宣傳而黃標！」", theme: "chaos", impact: { w: -15, c: 25, b: 20 } },
-        { text: "「這句咒語有沒有 RAP 版本？」", theme: "neutral", impact: { w: 5, c: 10, b: 10 } }
-      ]
-    },
-    4: {
-      script: "嘉賓：最後，我想送給聽眾一個祝福。閉上雙眼，感覺你的靈魂正在緩緩進化...我們都是銀河系的孩子，拒絕被世俗的標籤定義。Om...光子萬歲。",
-      reaction: "嘉賓緩緩闔眼，錄音室燈光似乎真的微微閃動了一下。這氛圍太玄了。",
-      chaosDescription: "錄音接近尾聲，能量似乎達到臨界點，波形呈現平滑的弧線。",
-      imageUrl: IMAGES.SPIRITUAL[4],
-      choices: [
-        { text: "「謝謝大師，家人的笑容就是靈魂最美的進化。結案！」", theme: "warm", impact: { w: 20, c: -15, b: 0 } },
-        { text: "「光子萬歲這句我會剪掉，我們只保留對健康的祝福。」", theme: "chaos", impact: { w: -10, c: 15, b: 20 } },
-        { text: "「既然是銀河系的孩子，那這集通告費能用光子支付嗎？」", theme: "neutral", impact: { w: 5, c: 10, b: 10 } }
-      ]
-    }
-  },
-  [GuestType.ENTREPRENEUR]: {
-    0: {
-      script: "嘉賓：製作人，你有看過凌晨 4 點的巴黎嗎？男人就是要進化。13 歲我就學會用槓桿原理賺到人生第一桶金，時間就是我的屠刀，掠奪才是本能。",
-      reaction: "錄音師看著他那鑲金的手錶，默默嘆了口氣。典型自律過剩案例。",
-      chaosDescription: "嘉賓語速極快，波形圖呈現密集且銳利的尖峰，動態範圍極窄。",
-      imageUrl: IMAGES.ENTREPRENEUR[0],
-      choices: [
-        { text: "「拼勁很美，但我們聊聊您如何將這份自律帶回溫暖的家庭？」", theme: "warm", impact: { w: 15, c: -5, b: 0 } },
-        { text: "（切斷訊號）「本台嚴禁廣告宣傳，請收起你的槓桿話術！」", theme: "chaos", impact: { w: -10, c: 15, b: 10 } },
-        { text: "「13 歲白手起家時，您有吃過便利商店的泡麵嗎？」", theme: "neutral", impact: { w: 5, c: 5, b: 5 } }
-      ]
-    },
-    1: {
-      script: "嘉賓：睡眠是留給沒野心的普通人的。我每天早上 3 點起床，對著鏡子打影拳，然後吞掉市場上最優秀的競爭者。這就是強者的氣場，你感覺到了嗎？",
-      reaction: "嘉賓身上的香水味濃得讓錄音室都要抽風，錄音師戴上了口罩。",
-      chaosDescription: "音軌動態嚴重超標，嘉賓的狂吼正在挑戰設備的極限平衡。",
-      imageUrl: IMAGES.ENTREPRENEUR[1],
-      choices: [
-        { text: "「真正的強者，是懂得在家人面前收起鋒芒的人。對吧？」", theme: "warm", impact: { w: 15, c: -10, b: 0 } },
-        { text: "「別再拍桌子了！這張桌子是台長從歐洲運回來的古董！」", theme: "chaos", impact: { w: -5, c: 20, b: 10 } },
-        { text: "「對著鏡子打拳時，您會思考早餐要加幾顆蛋嗎？」", theme: "neutral", impact: { w: 5, c: 5, b: 5 } }
-      ]
-    },
-    2: {
-      script: "嘉賓：我的每個動作都在優化。甚至現在跟你說話，我腦中都在計算這段錄音產出的複利。人生就是一場無止盡的掠奪遊戲，輸家不配談生存。",
-      reaction: "他指著你的鼻子，眼神充滿侵略性。錄音師已經準備好隨時切廣告。",
-      chaosDescription: "嘉賓的聲紋出現強烈的壓迫感，中頻段被大量填充，造成聽感疲勞。",
-      imageUrl: IMAGES.ENTREPRENEUR[2],
-      choices: [
-        { text: "「複利很好，但有一種資產是無法量化的，那就是陪伴。」", theme: "warm", impact: { w: 12, c: -5, b: 0 } },
-        { text: "「我們這裡是廣播電台，不是地下拳擊場。請放低音量！」", theme: "chaos", impact: { w: -10, c: 25, b: 15 } },
-        { text: "「所以錄這集能讓我的薪水也產生複利嗎？」", theme: "neutral", impact: { w: 5, c: 10, b: 5 } }
-      ]
-    },
-    3: {
-      script: "嘉賓：我最近在做生技駭客，我試圖繞過人類的恐懼中樞。當我感到痛的時候，我會對自己說：『這就是獲利的聲音』。痛苦就是最好的燃料。",
-      reaction: "嘉賓突然捏了一下自己的大腿，表情猙獰。現場氣氛變得有點詭異。",
-      chaosDescription: "嘉賓的呼吸變得急促，麥克風錄到大量的高頻噴氣聲（Plosives）。",
-      imageUrl: IMAGES.ENTREPRENEUR[3],
-      choices: [
-        { text: "「獲利固然重要，但學會面對脆弱才是真正的心理強大。」", theme: "warm", impact: { w: 15, c: -5, b: 0 } },
-        { text: "「導播，去叫保全。我覺得這位嘉賓的精神狀態需要專業評估。」", theme: "chaos", impact: { w: -20, c: 30, b: 25 } },
-        { text: "「獲利的聲音...聽起來像是收銀機關上的聲音嗎？」", theme: "neutral", impact: { w: 5, c: 5, b: 5 } }
-      ]
-    },
-    4: {
-      script: "嘉賓：最後，給所有想成功的男人一句話：不要去愛，要去統治。愛是軟弱者的避風港，而統治才是這個世界的唯一真理。結案。",
-      reaction: "嘉賓站起身整理領口，滿意地看著錄音機。錄音師在心裡默唸大悲咒。",
-      chaosDescription: "充滿霸氣與荒謬感的宣言在錄音間迴盪，殘響時間顯著拉長。",
-      imageUrl: IMAGES.ENTREPRENEUR[4],
-      choices: [
-        { text: "「統治世界太累，不如回家統治餐桌上的溫馨對話。謝謝分享。」", theme: "warm", impact: { w: 20, c: -10, b: 0 } },
-        { text: "「這段統治宣言我會剪成背景音，並配上馬戲團的音樂。」", theme: "chaos", impact: { w: -10, c: 30, b: 30 } },
-        { text: "「統治世界之後，您會考慮把電費降下來嗎？」", theme: "neutral", impact: { w: 5, c: 10, b: 10 } }
-      ]
-    }
-  },
-  [GuestType.LOWEND]: {
-    0: {
-      script: "嘉賓：製作人，我跟你說，我剛在捷運看到有人用鼻孔吸珍奶！結果卡住了！最後像大砲一樣射中旁邊阿伯的假牙！超級好笑的欸！",
-      reaction: "錄音師捂住臉長嘆。這已經是本週第三個關於假牙的內容了。",
-      chaosDescription: "嘉賓發出響亮的噴笑模擬聲，造成數位削波失真。",
-      imageUrl: IMAGES.LOWEND[0],
-      choices: [
-        { text: "「這就是生活的趣味。我們聊聊如何與鄰里分享快樂？」", theme: "warm", impact: { w: 15, c: -5, b: 0 } },
-        { text: "（長按消音）「嚴禁描述不雅生理現象！這裡是優雅電台！」", theme: "chaos", impact: { w: -10, c: 15, b: 10 } },
-        { text: "「那珍珠最後有洗過再喝嗎？」", theme: "neutral", impact: { w: 5, c: 5, b: 5 } }
-      ]
-    },
-    1: {
-      script: "嘉賓：我昨天收集了十個不同種類的肚臍垢，我打算把它們做成一種『原生有機香氛』。這是我最新研發的味覺衝擊，你要不要聞看看？",
-      reaction: "嘉賓拿出一罐罐裝物。錄音室充滿了一股難以言喻的氣味。錄音師正在尋找空調開關。",
-      chaosDescription: "背景充滿衣物摩擦聲，嘉賓似乎正在翻找罐頭，噪訊極大。",
-      imageUrl: IMAGES.LOWEND[1],
-      choices: [
-        { text: "「收集愛好很獨特。但保持家園清新與整潔，也是一種美學。」", theme: "warm", impact: { w: 15, c: -10, b: 0 } },
-        { text: "「快把那罐東西蓋上！導播！快打開通風設備！救命！」", theme: "chaos", impact: { w: -20, c: 30, b: 25 } },
-        { text: "「哪種肚臍垢聞起來最像藍乳酪？」", theme: "neutral", impact: { w: 5, c: 10, b: 10 } }
-      ]
-    },
-    2: {
-      script: "嘉賓：大家不覺得『排氣聲』其實是一種藝術嗎？不同頻率跟長度，代表了你上一餐對生活的態度。我昨晚的態度非常『麻辣大腸』。",
-      reaction: "嘉賓開始用手掌模擬各種聲音。現場一片死寂。",
-      chaosDescription: "音軌布滿了規律的低頻爆破音，嚴重干擾語音清晰度。",
-      imageUrl: IMAGES.LOWEND[2],
-      choices: [
-        { text: "「生活隨性很好，但餐桌上的和諧與禮儀，才是家人的重心。」", theme: "warm", impact: { w: 15, c: -5, b: 0 } },
-        { text: "「導播，把這段音軌全部廢掉！絕不能讓聽眾聽到這個！」", theme: "chaos", impact: { w: -15, c: 25, b: 20 } },
-        { text: "「麻辣大腸的聲音...是偏向 D 大調還是 E 小調？」", theme: "neutral", impact: { w: 5, c: 10, b: 5 } }
-      ]
-    },
-    3: {
-      script: "嘉賓：我上次在公園看到兩隻貓在打架，結果一隻不小心掉進噴水池，變成了落湯貓，還在那裡『喵嗚～』地求饒，全場阿公阿嬤都在笑！",
-      reaction: "嘉賓笑得前仰後合，不斷拍打大腿。錄音師擔心麥克風架會倒掉。",
-      chaosDescription: "錄音室環境噪聲顯著提升，拍桌聲與嘉賓的狂笑聲混雜。",
-      imageUrl: IMAGES.LOWEND[3],
-      choices: [
-        { text: "「生命皆有情。我們聊聊如何關懷社區裡的小動物？」", theme: "warm", impact: { w: 15, c: -5, b: 0 } },
-        { text: "「別再拍大腿了！我的麥克風架已經在求饒了！」", theme: "chaos", impact: { w: -5, c: 15, b: 10 } },
-        { text: "「落湯貓最後有去學游泳嗎？」", theme: "neutral", impact: { w: 5, c: 5, b: 2 } }
-      ]
-    },
-    4: {
-      script: "嘉賓：最後我要教大家一招：如何用一根腳趾頭挖鼻孔而不被老婆發現。這是我多年研究的絕活，保證讓你成為朋友圈的焦點！嘿，別掐斷啊！",
-      reaction: "嘉賓真的打算在錄音間脫掉鞋襪演示。錄音師已經衝出了導播室。",
-      chaosDescription: "混亂度達到巔峰，現場畫面不堪入目。音控系統瀕臨崩潰。",
-      imageUrl: IMAGES.LOWEND[4],
-      choices: [
-        { text: "「謝謝您的幽默分享。回歸溫馨家園，陪伴才是最美的風景。」", theme: "warm", impact: { w: 20, c: -10, b: 0 } },
-        { text: "「警衛！快點把他拖出去！他已經要脫襪子了！」", theme: "chaos", impact: { w: -25, c: 50, b: 50 } },
-        { text: "「這招對腳趾長度有要求嗎？我的夠長嗎？」", theme: "neutral", impact: { w: 5, c: 15, b: 15 } }
-      ]
-    }
-  }
-};
-
 export const getNextScene = (guest: GuestType, step: number): ScriptNode => {
-  return SCRIPTS[guest][step] || SCRIPTS[guest][0];
+  if (step >= 5) {
+    return {
+      script: "錄製結束。",
+      reaction: "工作人員鬆了一口氣。",
+      choices: [],
+      chaosDescription: "平靜如水",
+      imageUrl: IMAGES.RESULT_AWARD
+    };
+  }
+  const node = SCRIPTS[guest][step];
+  
+  // Inject missing properties dynamically
+  return {
+    ...node,
+    imageUrl: node.imageUrl || IMAGES.DEFAULT_STUDIO, // Ensure specific image is used or default
+    chaosDescription: node.choices.some(c => c.impact.c > 10) ? "混亂指數上升" : "錄音室運作正常",
+    choices: node.choices.map(c => ({
+      ...c,
+      theme: c.theme || (c.impact.w > 10 ? 'warm' : (c.impact.c > 10 || c.impact.b > 10 ? 'chaos' : 'neutral'))
+    }))
+  };
 };
 
-export const getFinalTitle = (w: number, c: number, b: number, guest: GuestType | null): string => {
-  // 核心系列分類邏輯
-
-  // 1. 療癒勵志系
-  if (w >= 85 && guest === GuestType.SPIRITUAL) {
-    return "【療癒勵志系：映心學堂】\n透過心理學與自我覺察視角，您成功轉化了嘉賓的情緒，陪伴聽眾在繁忙生活中找回內心的平靜。";
+export const getFinalTitle = (w: number, c: number, b: number, guest: GuestType): string => {
+  // Logic remains the same, images handled in App render logic or we could return an image url here too if needed
+  if (b > 60) {
+    return `收錄節目：【閱讀推手】\n\n製作人講評：\n因為嘉賓內容充滿爭議，整集幾乎被「嗶」聲覆蓋。為了填補空白，我們只好緊急朗讀說明書，意外推廣了閱讀風氣。`;
   }
 
-  // 2. 陪伴系 - 女性影響力
-  if (w >= 85 && guest === GuestType.ENTREPRENEUR) {
-    return "【故事陪伴系：影響力時間 HerStory】\n聚焦女性影響力，分享嘉賓在奮鬥心路歷程中的溫柔而堅定，傳遞改變世界的力量。";
+  if (c > 70) {
+    switch (guest) {
+      case GuestType.SPIRITUAL:
+        return `收錄節目：【呼吸狂想實驗室】\n\n製作人講評：\n來賓的言論已超越物理法則，全場工作人員聽得如癡如醉（或缺氧）。這是一場關於「狂想」的極致社會實驗。`;
+      case GuestType.ENTREPRENEUR:
+        return `收錄節目：【建築新樂園】\n\n製作人講評：\n嘉賓用華麗的辭藻蓋了一座空中樓閣。雖然地基不穩，但看他崩塌的過程，也算是一種另類的建築美學。`;
+      case GuestType.LOWEND:
+        return `收錄節目：【餐桌上的哲學家】\n\n製作人講評：\n充滿「味道」的一集。從便當菜色聊到社區八卦，重新定義了餐桌禮儀，聽完讓人對食物產生了深刻的哲學思考（敢不敢吃）。`;
+      default:
+        return `收錄節目：【呼吸狂想實驗室】\n\n製作人講評：\n這集內容過於前衛，徹底挑戰了人類邏輯的極限。`;
+    }
   }
 
-  // 3. 生活感性系 - 在地情懷
-  if (w >= 85 && guest === GuestType.LOWEND) {
-    return "【生活感性系：台灣幸福進行曲】\n挖掘在地人情味與不凡故事，您將原本零碎的發言剪輯成了傳遞社會正能量的幸福樂章。";
+  if (w > 60) {
+    switch (guest) {
+      case GuestType.SPIRITUAL:
+        return `收錄節目：【映心學堂】\n\n製作人講評：\n不可思議！您成功引導嘉賓說出了人話。這段對話不僅療癒了聽眾，也修復了錄音師受創的心靈。`;
+      case GuestType.ENTREPRENEUR:
+        return `收錄節目：【教育不一樣】\n\n製作人講評：\n面對狂妄的言論，您展現了教科書等級的引導。這不僅是訪談，更是對嘉賓進行了一場成功的社會化教育。`;
+      case GuestType.LOWEND:
+        return `收錄節目：【台灣幸福進行曲】\n\n製作人講評：\n在粗俗的表象下，您挖掘出了在地的人情味。雖然過程有點驚險，但結果充滿了台灣特有的生命力與幸福感。`;
+      default:
+        return `收錄節目：【台灣幸福進行曲】\n\n製作人講評：\n一段溫暖而真誠的對話，完美符合好家庭頻道的優雅形象。`;
+    }
   }
 
-  // 4. 陪伴系 - 閱讀與跨文化
-  if (w >= 70 && w < 85) {
-    if (b < 30) return "【故事陪伴系：閱讀推手】\n推廣閱讀文化，帶領聽眾進入書本世界，成功引領大眾培養終身學習的習慣。";
-    return "【故事陪伴系：那些老外教我的事】\n以跨文化視角探討碰撞出的生命啟發，分享與異國文化的經驗，為聽眾帶來全新視野。";
+  switch (guest) {
+    case GuestType.SPIRITUAL:
+      return `收錄節目：【那些老外教我的事】\n\n製作人講評：\n嘉賓的思維邏輯宛如外星人，這場訪談讓我們學會了如何進行跨物種溝通，充滿了異文化的衝擊與啟發。`;
+    case GuestType.ENTREPRENEUR:
+      return `收錄節目：【影響力時間 HerStory】\n\n製作人講評：\n雖然嘉賓自我感覺過於良好，但您努力維持了場面。這集節目見證了一個人的自信如何膨脹成一種「影響力」。`;
+    case GuestType.LOWEND:
+      return `收錄節目：【我的綠色方程式】\n\n製作人講評：\n內容雖然沒什麼營養，但我們秉持著不浪費的精神完成了錄製。這是一種將廢話回收再利用的環保體現。`;
+    default:
+      return `收錄節目：【呼吸狂想實驗室】\n\n製作人講評：\n一場普通的訪談，就像呼吸一樣自然，但也像空氣一樣讓人過耳即忘。`;
   }
-
-  // 5. 知識成長系 (BEnergy 驅動)
-  if (b >= 40) {
-    if (guest === GuestType.SPIRITUAL) return "【知識成長系：呼吸狂想實驗室】\n探討身心科學與冥想，讓聽眾重新認識這項最自然也最核心的生命能量。";
-    if (guest === GuestType.ENTREPRENEUR) return "【知識成長系：建築新樂園】\n帶領聽眾走進建築藝術與城市設計，解說空間背後的美學，讓冷冰冰的建築有了溫度。";
-    return "【知識成長系：我的綠色方程式】\n分享綠能知識與減塑經驗，尋找現代人與自然和諧共存的永續生活方案。";
-  }
-
-  // 6. 生活感性系 - 飲食哲學
-  if (w >= 60) {
-    return "【生活感性系：餐桌上的哲學家】\n從飲食文化切入探討人生的哲理與脈絡，讓人邊聽邊品味生活的真實味道。";
-  }
-
-  // 7. 陪伴系 - 創新教育 (高混亂度但成功產出)
-  if (c >= 60) {
-    return "【故事陪伴系：教育不一樣】\n探討創新教育理念，打破傳統框架，帶領家長與老師思考如何陪伴孩子發展多元的可能性。";
-  }
-
-  return "【製作存檔：未分類特輯】\n錄音內容未能進入主打系列。建議下次錄音時更積極引導嘉賓話題，提升頻道的整體質感。";
 };
