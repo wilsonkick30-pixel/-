@@ -1,4 +1,3 @@
-
 import { GuestType, ScriptNode, Impact } from './types';
 
 export const IMAGES = {
@@ -31,8 +30,8 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
       ]
     },
     {
-      script: "其實我不建議聽眾去醫院。身體的不舒服,都是*靈魂在排毒*。像我上次發燒到40度,我只喝了一杯宇宙高頻水就好了。",
-      reaction: "導播室的通訊軟體瘋狂閃爍（法務部警告）。(警語：生病請務必就醫，本台立場不代表嘉賓言論)",
+      script: "其實我不建議聽眾去醫院。身體的不舒服，都是*靈魂在排毒*。像我上次發燒到 40 度，我只喝了一杯宇宙高頻水就好了。",
+      reaction: "嘉賓言論不代表本台立場",
       imageUrl: IMAGES.SPIRITUAL_VIBE,
       choices: [
         { text: "「當然，心靈的力量重要，但現代醫學也是宇宙的恩賜嘛。」", impact: COMMON_IMPACT.WARM },
@@ -41,7 +40,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
       ]
     },
     {
-      script: "我看你的「氣場」是紫色的，這代表你最近很焦慮，是不是感情出了問題？還是你的原生家庭...",
+      script: "我看你的「氣場」是紫色的，這代表你最近很焦慮，是不是感情出了問題？還是你的原生家庭……",
       reaction: "錄音師看著你，眼神中充滿同情。",
       imageUrl: IMAGES.SPIRITUAL_VIBE,
       choices: [
@@ -61,7 +60,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
       ]
     },
     {
-      script: "最後我想帶大家做一個「集體冥想」，請正在開車的聽眾閉上眼睛...",
+      script: "最後我想帶大家做一個「集體冥想」，請正在開車的聽眾閉上眼睛……",
       reaction: "導播嚇到把咖啡噴出來。",
       imageUrl: IMAGES.SPIRITUAL_VIBE,
       choices: [
@@ -88,7 +87,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
       imageUrl: IMAGES.ENTREPRENEUR_VIBE,
       choices: [
         { text: "「這份熱情確實令人敬佩，但身心健康也是一種資產吧？」", impact: COMMON_IMPACT.WARM },
-        { text: "「一天睡兩小時？難怪您看起來有點... 滄桑。」", impact: COMMON_IMPACT.CHAOS },
+        { text: "「一天睡兩小時？難怪您看起來有點…… 滄桑。」", impact: COMMON_IMPACT.CHAOS },
         { text: "尷尬地笑：「哈哈，真的，現在年輕人太草莓了。（虛偽）」", impact: COMMON_IMPACT.BALANCED }
       ]
     },
@@ -125,17 +124,17 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
   ],
   [GuestType.LOWEND]: [
     {
-      script: "（拍桌子聲響極大）我跟你講！這沒什麼啦！上次那個王太太...（手機響起，大聲接聽）喂？喔，陳主任喔？我在錄 Podcast 啦！這台長我麻吉啦！",
+      script: "（拍桌子聲響極大）我跟你講！這沒什麼啦！上次那個王太太……（手機響起，大聲接聽）喂？喔，陳主任喔？我在錄 Podcast 啦！這台長我麻吉啦！",
       reaction: "錄音師看著爆掉的紅線音軌，開始思考轉行的可能性。",
       imageUrl: IMAGES.LOWEND_VIBE,
       choices: [
         { text: "「委員人脈真廣，連錄音都要親自指導地方事務。」", impact: COMMON_IMPACT.WARM },
-        { text: "「那個...拍桌子的聲音，後製會變成打雷特效喔。」", impact: COMMON_IMPACT.CHAOS },
+        { text: "「那個……拍桌子的聲音，後製會變成打雷特效喔。」", impact: COMMON_IMPACT.CHAOS },
         { text: "「我們先進一段墊檔音樂，讓委員處理一下重要公務。」", impact: COMMON_IMPACT.SILENCE }
       ]
     },
     {
-      script: "我跟你講，我家隔壁那個王太太，這兩天沒出來倒垃圾。我懷疑她老公... 嘿嘿嘿，你知道的。",
+      script: "我跟你講，我家隔壁那個王太太，這兩天沒出來倒垃圾。我懷疑她老公…… 嘿嘿嘿，你知道的。",
       reaction: "典型的未經查證八卦，而且由有力人士講出來威力更驚人。",
       imageUrl: IMAGES.LOWEND_VIBE,
       choices: [
@@ -146,7 +145,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
     },
     {
       script: "最近那個新聞說什麼缺蛋，騙人的啦！我都去後面那個私人的市場，一斤才二十塊！",
-      reaction: "這要是播出去，相關單位大概都會打電話過來。",
+      reaction: "這要是播出去，相關單位壓力大概都會很大。",
       imageUrl: IMAGES.LOWEND_VIBE,
       choices: [
         { text: "「這是您的個人經驗啦，大家還是要循正常管道購買食材喔。」", impact: COMMON_IMPACT.WARM },
@@ -159,13 +158,13 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
       reaction: "錄音師看著昂貴的電容式麥克風，眼神已死。",
       imageUrl: IMAGES.LOWEND_VIBE,
       choices: [
-        { text: "「真性情！這就是我們節目想要傳達的...『在地生活力』。」", impact: COMMON_IMPACT.WARM },
-        { text: "「請委員盡量不要對著麥克風... 展現權威。」", impact: COMMON_IMPACT.SILENCE },
+        { text: "「真性情！這就是我們節目想要傳達的……『在地生活力』。」", impact: COMMON_IMPACT.WARM },
+        { text: "「請委員盡量不要對著麥克風…… 展現權威。」", impact: COMMON_IMPACT.SILENCE },
         { text: "跟著打一個嗝回去：「沒事，大家都是自己人。」", impact: COMMON_IMPACT.CHAOS }
       ]
     },
     {
-      script: "最後我想藉這個機會，跟那個... 前女友阿美喊話。阿美！那兩千塊不用還了！把我的摩托車鑰匙寄回來就好！",
+      script: "最後我想藉這個機會，跟那個…… 前女友阿美喊話。阿美！那兩千塊不用還了！把我的摩托車鑰勢寄回來就好！",
       reaction: "這變成了私人喊話兼地方調解頻道。",
       imageUrl: IMAGES.LOWEND_VIBE,
       choices: [
@@ -228,7 +227,7 @@ export const getFinalTitle = (w: number, c: number, b: number, guest: GuestType)
     const prefix = `【高混亂結局】\n\n`;
     switch (guest) {
       case GuestType.SPIRITUAL:
-        return prefix + `收錄節目：【呼吸狂想實驗室】\n\n製作人講評：\n來賓的言論已超越物理法則,全場工作人員聽得如癡如醉(或缺氧)。這是一場關於「狂想」的極致社會實驗。`;
+        return prefix + `收錄節目：【呼吸狂想實驗室】\n\n製作人講評：\n來賓的言論已超越物理法則，全場工作人員聽得如癡如醉（或缺氧）。這是一場關於「狂想」的極致社會實驗。`;
       case GuestType.ENTREPRENEUR:
         return prefix + `收錄節目：【建築新樂園】\n\n製作人講評：\n您將嘉賓宏大的願景轉化為數位時代的建築美學探討，看見遠見者如何定義未來的輪廓。`;
       case GuestType.LOWEND:
