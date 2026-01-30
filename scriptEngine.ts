@@ -31,7 +31,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
       ]
     },
     {
-      script: "其實我不建議聽眾去醫院。身體的不舒服，都是「靈魂在排毒」。像我上次發燒到 40 度，我只喝了一杯在此刻被祝福過的水。",
+      script: "其實我不建議聽眾去醫院。身體的不舒服,都是*靈魂在排毒*。像我上次發燒到40度,我只喝了一杯宇宙高頻水就好了。",
       reaction: "導播室的通訊軟體瘋狂閃爍（法務部警告）。(警語：生病請務必就醫，本台立場不代表嘉賓言論)",
       imageUrl: IMAGES.SPIRITUAL_VIBE,
       choices: [
@@ -94,7 +94,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
     },
     {
       script: "這本書裡提到的「量子區塊鏈 AI 賦能」，其實就是我想傳達的核心。看不懂的人，基本上已經被時代淘汰了。",
-      reaction: "你確定連他自己都不知道自己在說什麼。",
+      reaction: "你確定他自己知道自己在講什麼嗎？",
       imageUrl: IMAGES.ENTREPRENEUR_VIBE,
       choices: [
         { text: "「聽起來很深奧，能用白話文舉個生活中的例子嗎？」", impact: COMMON_IMPACT.WARM },
@@ -104,7 +104,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
     },
     {
       script: "其實我今天來，主要是想宣佈我要選立委。這個國家缺乏像我這樣的「執行長思維」。",
-      reaction: "導播透過耳機大叫：「不可以！這會有選罷法問題！擋住他！」",
+      reaction: "不可以！我們不能表達政治立場！擋住他！",
       imageUrl: IMAGES.ENTREPRENEUR_VIBE,
       choices: [
         { text: "「這真是個驚喜，不過今天我們先專注在您的創業故事。」", impact: COMMON_IMPACT.WARM },
@@ -180,7 +180,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
 const PODCAST_URLS: Record<string, string> = {
   "閱讀推手": "https://podcasts.apple.com/tw/podcast/%E9%96%B1%E8%AE%80%E6%8E%A8%E6%89%8B/id1525854237",
   "那些老外教我的事": "https://open.firstory.me/user/lessonsfromlaowai/platforms",
-  "影響力時間_HerStory": "https://open.firstory.me/user/977herstory/platforms",
+  "影響力時間 HerStory": "https://open.firstory.me/user/977herstory/platforms",
   "教育不一樣": "https://open.firstory.me/user/fm977edu/platforms",
   "呼吸狂想實驗室": "https://open.firstory.me/user/cmgolq7q2008701w85amo5gfr/platforms",
   "建築新樂園": "https://podcasts.apple.com/tw/podcast/%E5%BB%BA%E7%AF%89%E6%96%B0%E6%A8%82%E5%9C%92/id1549878612",
@@ -215,53 +215,56 @@ export const getNextScene = (guest: GuestType, step: number): ScriptNode => {
 export const getFinalTitle = (w: number, c: number, b: number, guest: GuestType): string => {
   // Safety Guardrail Triggered (High Chaos from specific choice)
   if (c >= 900) {
-    return `【公關火葬場】\n\n開車請勿閉眼！電台已被交通局停權。`;
+    return `【特殊失敗結局】\n\n【公關火葬場】\n\n開車請勿閉眼！電台已被交通局停權。`;
   }
 
   // Universal Failure (High Censorship)
   if (b > 60) {
-    return `收錄節目：【閱讀推手】\n\n製作人講評：\n雖然嘉賓內容具爭議，但您發揮了極致的監控專業。這集節目透過『適度的留白』保護了聽眾的耳朵，更意外引導聽眾轉向深度閱讀。`;
+    return `【消音/監控結局】\n\n收錄節目：【閱讀推手】\n\n製作人講評：\n雖然嘉賓內容具爭議，但您發揮了極致的監控專業。這集節目透過『適度的留白』保護了聽眾的耳朵，更意外引導聽眾轉向深度閱讀。`;
   }
 
   // High Chaos
   if (c > 60) {
+    const prefix = `【高混亂結局】\n\n`;
     switch (guest) {
       case GuestType.SPIRITUAL:
-        return `收錄節目：【呼吸狂想實驗室】\n\n製作人講評：\n來賓的言論已超越物理法則,全場工作人員聽得如癡如醉(或缺氧)。這是一場關於「狂想」的極致社會實驗。`;
+        return prefix + `收錄節目：【呼吸狂想實驗室】\n\n製作人講評：\n來賓的言論已超越物理法則,全場工作人員聽得如癡如醉(或缺氧)。這是一場關於「狂想」的極致社會實驗。`;
       case GuestType.ENTREPRENEUR:
-        return `收錄節目：【建築新樂園】\n\n製作人講評：\n您將嘉賓宏大的願景轉化為數位時代的建築美學探討，看見遠見者如何定義未來的輪廓。`;
+        return prefix + `收錄節目：【建築新樂園】\n\n製作人講評：\n您將嘉賓宏大的願景轉化為數位時代的建築美學探討，看見遠見者如何定義未來的輪廓。`;
       case GuestType.LOWEND:
-        return `收錄節目：【餐桌上的哲學家】\n\n製作人講評：\n雖然嘉賓大打飽嗝還聊八卦，但您從這些庶民飲食與在地瑣事中，提煉出了最真實的人間哲學。`;
+        return prefix + `收錄節目：【餐桌上的哲學家】\n\n製作人講評：\n雖然嘉賓大打飽嗝還聊八卦，但您從這些庶民飲食與在地瑣事中，提煉出了最真實的人間哲學。`;
     }
   }
 
   // High Elegant
   if (w > 60) {
+    const prefix = `【高優雅結局】\n\n`;
     switch (guest) {
       case GuestType.SPIRITUAL:
-        return `收錄節目：【映心學堂】\n\n製作人講評：\n您成功引導嘉賓分享生命洞見，為心靈能量與現代生活找到了完美的平衡頻率。`;
+        return prefix + `收錄節目：【映心學堂】\n\n製作人講評：\n您成功引導嘉賓分享生命洞見，為心靈能量與現代生活找到了完美的平衡頻率。`;
       case GuestType.ENTREPRENEUR:
-        return `收錄節目：【教育不一樣】\n\n製作人講評：\n面對強大領導者氣場，您展現了教科書等級的提問，將個人成功昇華為對教育的啟發。`;
+        return prefix + `收錄節目：【教育不一樣】\n\n製作人講評：\n面對強大領導者氣場，您展現了教科書等級的提問，將個人成功昇華為對教育的啟發。`;
       case GuestType.LOWEND:
-        return `收錄節目：【台灣幸福進行曲】\n\n製作人講評：\n在剛硬的外表下，您挖掘出了最珍貴的地方人情味，將地方實力轉化為傳遞幸福的正能量。`;
+        return prefix + `收錄節目：【台灣幸福進行曲】\n\n製作人講評：\n在剛硬的外表下，您挖掘出了最珍貴的地方人情味，將地方實力轉化為傳遞幸福的正能量。`;
     }
   }
 
   // Balanced
+  const prefix = `【平衡結局】\n\n`;
   switch (guest) {
     case GuestType.SPIRITUAL:
-      return `收錄節目：【那些老外教我的事】\n\n製作人講評：\n嘉賓獨特的思維模式為我們打開了跨文化溝通的新視窗，發現不一樣的世界觀。`;
+      return prefix + `收錄節目：【那些老外教我的事】\n\n製作人講評：\n嘉賓獨特的思維模式為我們打開了跨文化溝通的新視窗，發現不一樣的世界觀。`;
     case GuestType.ENTREPRENEUR:
-      return `收錄節目：【影響力時間_HerStory】\n\n製作人講評：\n邀請到極具魅力的嘉賓分享如何擁抱自我、發揮影響力，是一場關於勇氣的深刻洗禮。`;
+      return prefix + `收錄節目：【影響力時間 HerStory】\n\n製作人講評：\n邀請到極具魅力的嘉賓分享如何擁抱自我、發揮影響力，是一場關於勇氣的深刻洗禮。`;
     case GuestType.LOWEND:
-      return `收錄節目：【我的綠色方程式】\n\n製作人講評：\n您將日常鄰里瑣事昇華為綠色靈感，透過輕鬆言談，實踐了一種心靈上的永續與循環。`;
+      return prefix + `收錄節目：【我的綠色方程式】\n\n製作人講評：\n您將日常鄰里瑣事昇華為綠色靈感，透過輕鬆言談，實踐了一種心靈上的永續與循環。`;
     default:
-      return `收錄節目：【拾光製作人】\n\n製作人講評：\n一場平衡且流暢的訪談，展現了製作人在變動環境中維持專業穩定的核心實力。`;
+      return prefix + `收錄節目：【拾光製作人】\n\n製作人講評：\n一場平衡且流暢的訪談，展現了製作人在變動環境中維持專業穩定的核心實力。`;
   }
 };
 
 export const getPodcastUrl = (finalText: string): string => {
-  const match = finalText.match(/【(.*?)】/);
+  const match = finalText.match(/收錄節目：【(.*?)】/);
   if (match && match[1]) {
     const title = match[1];
     if (PODCAST_URLS[title]) return PODCAST_URLS[title];
