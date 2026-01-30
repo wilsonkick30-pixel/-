@@ -173,7 +173,7 @@ const App: React.FC = () => {
                     <span className="text-[#0F4C81]">Producer.</span>
                   </h2>
                   <p className="text-lg lg:text-2xl text-[#939597] font-medium leading-relaxed max-w-2xl">
-                    這裡是專業的錄音間，不歡迎粗俗。<br className="hidden lg:block"/>請運用您的剪輯智慧，將這場災難轉化為廣播神作。
+                    你以為錄音室裡只有咖啡香？其實更多的是製作人的火藥味！<br className="hidden lg:block"/>挑戰《拾光製作人》，看你能否在荒謬的嘉賓訪談中，剪輯出下一集金鐘獎神作！
                   </p>
                 </div>
                 
