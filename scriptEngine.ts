@@ -21,13 +21,13 @@ const COMMON_IMPACT: { [key: string]: Impact } = {
 const SCRIPTS: Record<GuestType, ScriptNode[]> = {
   [GuestType.SPIRITUAL]: [
     {
-      script: "（推開耳機）我不需要戴這個，我聽得到宇宙的聲音。這邊的「磁場」有點濁，是不是剛剛有人在這裡吵架？",
-      reaction: "錄音師默默收回耳機，心想：「反正只是 Podcast，沒差。」",
+      script: "（突然對著空氣揮手）製作人，你剛才那個問題頻率太低了，卡在我的喉輪。你的剪輯師是不是最近常熬夜？我聽得到他肝臟在求救的頻率。",
+      reaction: "錄音師默默放下手中的能量飲料，看著音軌上因為嘉賓揮手而產生的風聲爆音。",
       imageUrl: IMAGES.SPIRITUAL_VIBE,
       choices: [
-        { text: "「既然老師感應得到，那您幫我聽聽看他們在吵什麼？」", impact: COMMON_IMPACT.WARM },
-        { text: "「那您能幫我感應一下，下一期樂透號碼嗎？」", impact: COMMON_IMPACT.CHAOS },
-        { text: "（不發一語，直接播放片頭音樂蓋過她）", impact: COMMON_IMPACT.SILENCE }
+        { text: "「抱歉，我這就叫剪輯師去喝宇宙高頻水排毒。」", impact: COMMON_IMPACT.WARM },
+        { text: "「那老師能順便感應一下，我這集的點閱率頻率高嗎？」", impact: COMMON_IMPACT.CHAOS },
+        { text: "（深呼吸）「老師，我們回歸正題，聊聊您的能量水晶。」", impact: COMMON_IMPACT.SILENCE }
       ]
     },
     {
@@ -73,13 +73,13 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
   ],
   [GuestType.ENTREPRENEUR]: [
     {
-      script: "（打量環境）製作人，這個錄音室的格局是不是該翻新了？這種 90 年代的裝修風格會抑制我的「創造力輸出」。這段能剪掉嗎？我剛才的語氣不夠像在「俯瞰眾生」。",
-      reaction: "錄音師看著剛刷好的防火漆，在混音盤下悄悄攥緊了拳頭。",
+      script: "（戴著墨鏡）這錄音室太暗，抑制了我的 Vibe。這段重錄，我剛才說『引領時代』時，那個俯瞰眾生的眼神沒到位——雖然沒錄影，但聲音會帶有靈魂的質感。",
+      reaction: "錄音師透過對講麥克風小聲說：「這是 Podcast，你就算翻白眼，聽眾也以為你在沈思。」",
       imageUrl: IMAGES.ENTREPRENEUR_VIBE,
       choices: [
-        { text: "「我們走的是復古人文風格，您的氣場剛好能平衡這份厚重。」", impact: COMMON_IMPACT.WARM },
-        { text: "「沒關係，我們會用後製幫您加上『賽博龐克』的霓虹邊框。」", impact: COMMON_IMPACT.CHAOS },
-        { text: "「好的，那我們重來。（並沒有在錄）」", impact: COMMON_IMPACT.SILENCE }
+        { text: "「沒錯，我們需要那種『俯瞰』的音質，請再來一次。」", impact: COMMON_IMPACT.WARM },
+        { text: "「沒關係，我後製會幫您的聲音加上『穿西裝』的聽感。」", impact: COMMON_IMPACT.CHAOS },
+        { text: "「好的，那我們重來。（低頭劃掉這一題）」", impact: COMMON_IMPACT.SILENCE }
       ]
     },
     {
@@ -125,13 +125,13 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
   ],
   [GuestType.LOWEND]: [
     {
-      script: "（整理了一下西裝領帶）製作人，我今天特地推掉一個「地方協調會」過來，就是看在你們台長的份上。你們「好家庭」在地方上風評不錯，但我剛才進門看了一下，你們的門禁管理似乎有點鬆散啊？",
-      reaction: "錄音師看著被挪動的高價麥克風，聞到了一股權威壓迫的氣息。",
+      script: "（拍桌子聲響極大）我跟你講！這沒什麼啦！上次那個王太太...（手機響起，大聲接聽）喂？喔，陳主任喔？我在錄 Podcast 啦！這台長我麻吉啦！",
+      reaction: "錄音師看著爆掉的紅線音軌，開始思考轉行的可能性。",
       imageUrl: IMAGES.LOWEND_VIBE,
       choices: [
-        { text: "「委員您觀察入微，我們一定會請總務部立刻加強，請上座。」", impact: COMMON_IMPACT.WARM },
-        { text: "「委員對細節的掌控力，正是地方進步的關鍵，我們直接開始錄音吧。」", impact: COMMON_IMPACT.BALANCED },
-        { text: "「哈哈，這就是我們『好家庭』的親和力，門常開、人常來嘛。」", impact: COMMON_IMPACT.CHAOS }
+        { text: "「委員人脈真廣，連錄音都要親自指導地方事務。」", impact: COMMON_IMPACT.WARM },
+        { text: "「那個...拍桌子的聲音，後製會變成打雷特效喔。」", impact: COMMON_IMPACT.CHAOS },
+        { text: "「我們先進一段墊檔音樂，讓委員處理一下重要公務。」", impact: COMMON_IMPACT.SILENCE }
       ]
     },
     {
