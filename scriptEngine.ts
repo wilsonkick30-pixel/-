@@ -40,7 +40,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
       ]
     },
     {
-      script: "我看你的「氣場」是紫色的，這代表你最近很焦慮，是不是感情出了問題？還是你的原生家庭……",
+      script: "我看你的『氣場』是紫色的，這代表你最近很焦慮，是不是感情出了問題？還是你的原生家庭……",
       reaction: "錄音師看著你，眼神中充滿同情。",
       imageUrl: IMAGES.SPIRITUAL_VIBE,
       choices: [
@@ -50,7 +50,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
       ]
     },
     {
-      script: "這個錄音室的「方位」不對，難怪你們收聽率上不去。要在東南方擺一個九千元的水晶洞。",
+      script: "這個錄音室的『方位』不對，難怪你們收聽率上不去。要在東南方擺一個九千元的水晶洞。",
       reaction: "台長剛好經過窗外，停下腳步往裡面看。",
       imageUrl: IMAGES.SPIRITUAL_VIBE,
       choices: [
@@ -60,7 +60,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
       ]
     },
     {
-      script: "最後我想帶大家做一個「集體冥想」，請正在開車的聽眾閉上眼睛……",
+      script: "最後我想帶大家做一個『集體冥想』，請正在開車的聽眾閉上眼睛……",
       reaction: "導播嚇到把咖啡噴出來。",
       imageUrl: IMAGES.SPIRITUAL_VIBE,
       choices: [
@@ -82,7 +82,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
       ]
     },
     {
-      script: "年輕人就是太計較薪水。我當年創業，一天只睡兩小時，其他時間都在思考如何改變世界。這就是「狼性」。",
+      script: "年輕人就是太計較薪水。我當年創業，一天只睡兩小時，其他時間都在思考如何改變世界。這就是『狼性』。",
       reaction: "剛領完最低時薪的工讀生在角落瑟瑟發抖。",
       imageUrl: IMAGES.ENTREPRENEUR_VIBE,
       choices: [
@@ -92,7 +92,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
       ]
     },
     {
-      script: "這本書裡提到的「量子區塊鏈 AI 賦能」，其實就是我想傳達的核心。看不懂的人，基本上已經被時代淘汰了。",
+      script: "這本書裡提到的『量子區塊鏈 AI 賦能』，其實就是我想傳達的核心。看不懂的人，基本上已經被時代淘汰了。",
       reaction: "你確定他自己知道自己在講什麼嗎？",
       imageUrl: IMAGES.ENTREPRENEUR_VIBE,
       choices: [
@@ -102,7 +102,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
       ]
     },
     {
-      script: "其實我今天來，主要是想宣佈我要選立委。這個國家缺乏像我這樣的「執行長思維」。",
+      script: "其實我今天來，主要是想宣佈我要選立委。這個國家缺乏像我這樣的『執行長思維』。",
       reaction: "不可以！我們不能表達政治立場！擋住他！",
       imageUrl: IMAGES.ENTREPRENEUR_VIBE,
       choices: [
@@ -112,7 +112,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
       ]
     },
     {
-      script: "最後，送給聽眾一句話：如果你現在還買不起房，那是因為你想要的不夠多。跟「宇宙」下訂單吧！",
+      script: "最後，送給聽眾一句話：如果你現在還買不起房，那是因為你想要的不夠多。跟『宇宙』下訂單吧！",
       reaction: "錄音室空氣凝結，所有租屋族工作人員拳頭都硬了。",
       imageUrl: IMAGES.ENTREPRENEUR_VIBE,
       choices: [
