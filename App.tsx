@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { GuestType, GameState, Choice } from './types';
-import { getNextScene, getFinalTitle, IMAGES } from './scriptEngine';
+import { getNextScene, getFinalTitle, getPodcastUrl, IMAGES } from './scriptEngine';
 
 const App: React.FC = () => {
   const [showTutorial, setShowTutorial] = useState(true);
@@ -279,7 +279,7 @@ const App: React.FC = () => {
                     Next Episode
                   </button>
                   <a 
-                    href="https://podcasts.apple.com/tw/channel/%E5%A5%BD%E5%AE%B6%E5%BA%AD%E8%81%AF%E6%92%AD%E7%B6%B2/id6751031612"
+                    href={state.finalTitle ? getPodcastUrl(state.finalTitle) : "https://podcasts.apple.com/tw/channel/%E5%A5%BD%E5%AE%B6%E5%BA%AD%E8%81%AF%E6%92%AD%E7%B6%B2/id6751031612"}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-8 lg:px-10 py-4 lg:py-5 bg-white border border-[#2D2D2D] text-[#2D2D2D] text-base lg:text-lg font-bold tracking-widest uppercase hover:bg-[#F4F5F0] transition-colors flex items-center justify-center gap-3 shadow-xl"

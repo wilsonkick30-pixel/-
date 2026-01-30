@@ -14,14 +14,15 @@ const COMMON_IMPACT: { [key: string]: Impact } = {
   WARM: { w: 15, c: -5, b: -5 },
   CHAOS: { w: -10, c: 20, b: 0 },
   SILENCE: { w: -5, c: 5, b: 15 },
-  BALANCED: { w: 5, c: 5, b: 0 }
+  BALANCED: { w: 5, c: 5, b: 0 },
+  FATAL: { w: -100, c: 999, b: 0 } // Triggers Safety Risk Game Over
 };
 
 const SCRIPTS: Record<GuestType, ScriptNode[]> = {
   [GuestType.SPIRITUAL]: [
     {
       script: "（推開耳機）我不需要戴這個，我聽得到宇宙的聲音。這邊的「磁場」有點濁，是不是剛剛有人在這裡吵架？",
-      reaction: "錄音師默默把耳機音量調大，翻了個白眼。",
+      reaction: "錄音師默默收回耳機，心想：「反正只是 Podcast，沒差。」",
       imageUrl: IMAGES.SPIRITUAL_VIBE,
       choices: [
         { text: "「既然老師感應得到，那您幫我聽聽看他們在吵什麼？」", impact: COMMON_IMPACT.WARM },
@@ -31,7 +32,7 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
     },
     {
       script: "其實我不建議聽眾去醫院。身體的不舒服，都是「靈魂在排毒」。像我上次發燒到 40 度，我只喝了一杯在此刻被祝福過的水。",
-      reaction: "導播室的電話燈號突然瘋狂閃爍（投訴電話）。",
+      reaction: "導播室的通訊軟體瘋狂閃爍（法務部警告）。(警語：生病請務必就醫，本台立場不代表嘉賓言論)",
       imageUrl: IMAGES.SPIRITUAL_VIBE,
       choices: [
         { text: "「當然，心靈的力量重要，但現代醫學也是宇宙的恩賜嘛。」", impact: COMMON_IMPACT.WARM },
@@ -65,14 +66,14 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
       imageUrl: IMAGES.SPIRITUAL_VIBE,
       choices: [
         { text: "大喊：「開車的朋友請張開眼睛！！注意路況！！」", impact: COMMON_IMPACT.WARM },
-        { text: "跟著閉上眼睛，享受這片刻的寧靜（和車禍風險）。", impact: COMMON_IMPACT.CHAOS },
+        { text: "跟著閉上眼睛，享受這片刻的寧靜（和車禍風險）。", impact: COMMON_IMPACT.FATAL },
         { text: "切掉麥克風，直接播放《交通安全宣導短片》。", impact: COMMON_IMPACT.SILENCE }
       ]
     }
   ],
   [GuestType.ENTREPRENEUR]: [
     {
-      script: "（打量環境）製作人，這個錄音室的格局是不是該翻新了？這種 90 年代的裝修風格會抑制我的「創造力輸出」。這段能剪掉嗎？我剛才眼神不夠像在「俯瞰眾生」。",
+      script: "（打量環境）製作人，這個錄音室的格局是不是該翻新了？這種 90 年代的裝修風格會抑制我的「創造力輸出」。這段能剪掉嗎？我剛才的語氣不夠像在「俯瞰眾生」。",
       reaction: "錄音師看著剛刷好的防火漆，在混音盤下悄悄攥緊了拳頭。",
       imageUrl: IMAGES.ENTREPRENEUR_VIBE,
       choices: [
@@ -176,6 +177,19 @@ const SCRIPTS: Record<GuestType, ScriptNode[]> = {
   ]
 };
 
+const PODCAST_URLS: Record<string, string> = {
+  "閱讀推手": "https://podcasts.apple.com/tw/podcast/%E9%96%B1%E8%AE%80%E6%8E%A8%E6%89%8B/id1525854237",
+  "那些老外教我的事": "https://open.firstory.me/user/lessonsfromlaowai/platforms",
+  "影響力時間_HerStory": "https://open.firstory.me/user/977herstory/platforms",
+  "教育不一樣": "https://open.firstory.me/user/fm977edu/platforms",
+  "呼吸狂想實驗室": "https://open.firstory.me/user/cmgolq7q2008701w85amo5gfr/platforms",
+  "建築新樂園": "https://podcasts.apple.com/tw/podcast/%E5%BB%BA%E7%AF%89%E6%96%B0%E6%A8%82%E5%9C%92/id1549878612",
+  "我的綠色方程式": "https://open.firstory.me/user/green-equation/platforms",
+  "台灣幸福進行曲": "https://open.firstory.me/user/ckdzbn30ja5870880tixg6ezx/platforms",
+  "餐桌上的哲學家": "https://open.firstory.me/user/cm32e7le402xq01vc3rtidr6f/platforms",
+  "映心學堂": "https://open.firstory.me/user/cl1wuz8n9097v01w8c7p2hpfg/platforms"
+};
+
 export const getNextScene = (guest: GuestType, step: number): ScriptNode => {
   if (step >= 5) {
     return {
@@ -199,44 +213,58 @@ export const getNextScene = (guest: GuestType, step: number): ScriptNode => {
 };
 
 export const getFinalTitle = (w: number, c: number, b: number, guest: GuestType): string => {
-  if (b > 60) {
-    return `收錄節目：【閱讀推手】\n\n製作人講評：\n雖然錄製過程中嘉賓內容較具爭議，但您發揮了極致的監控專業。這集節目透過「適度的留白」保護了聽眾的耳朵，更意外引導聽眾轉向深度閱讀，展現了留白的美學。`;
+  // Safety Guardrail Triggered (High Chaos from specific choice)
+  if (c >= 900) {
+    return `【公關火葬場】\n\n開車請勿閉眼！電台已被交通局停權。`;
   }
 
-  if (c > 70) {
+  // Universal Failure (High Censorship)
+  if (b > 60) {
+    return `收錄節目：【閱讀推手】\n\n製作人講評：\n雖然嘉賓內容具爭議，但您發揮了極致的監控專業。這集節目透過『適度的留白』保護了聽眾的耳朵，更意外引導聽眾轉向深度閱讀。`;
+  }
+
+  // High Chaos
+  if (c > 60) {
     switch (guest) {
       case GuestType.SPIRITUAL:
-        return `收錄節目：【呼吸狂想實驗室】\n\n製作人講評：\n一場前衛的實驗性訪談！來賓的言論雖然挑戰邏輯，但您精準捕捉了那份「跨越維度的想像力」。這集節目將成為電台最具指標性的社會思考實驗，帶領聽眾探索意識的新邊界。`;
+        return `收錄節目：【呼吸狂想實驗室】\n\n製作人講評：\n來賓的言論已超越物理法則,全場工作人員聽得如癡如醉(或缺氧)。這是一場關於「狂想」的極致社會實驗。`;
       case GuestType.ENTREPRENEUR:
-        return `收錄節目：【建築新樂園】\n\n製作人講評：\n您成功將嘉賓宏大的願景轉化為一場數位時代的建築美學探討。雖然計畫看似大膽，但在您的專業編輯下，聽眾看見了遠見者如何定義未來的輪廓，激發對城市的無限想像。`;
+        return `收錄節目：【建築新樂園】\n\n製作人講評：\n您將嘉賓宏大的願景轉化為數位時代的建築美學探討，看見遠見者如何定義未來的輪廓。`;
       case GuestType.LOWEND:
-        return `收錄節目：【餐桌上的哲學家】\n\n製作人講評：\n好家庭聯播網【餐桌上的哲學家】，與你談料理，談永續，談如何用吃改變世界。我們邀請主廚一起分享料理之於永續的哲思！主廚以「綠色餐廳」作為起點，從友善土地的精神出發，依循在地食材與時令入菜，做到人、料理與土地的和諧永續。`;
-      default:
-        return `收錄節目：【呼吸狂想實驗室】\n\n製作人講評：\n這集內容極具前衛色彩，徹底挑戰了傳統對話的框架。`;
+        return `收錄節目：【餐桌上的哲學家】\n\n製作人講評：\n雖然嘉賓大打飽嗝還聊八卦，但您從這些庶民飲食與在地瑣事中，提煉出了最真實的人間哲學。`;
     }
   }
 
+  // High Elegant
   if (w > 60) {
     switch (guest) {
       case GuestType.SPIRITUAL:
-        return `收錄節目：【映心學堂】\n\n製作人講評：\n不可思議！您以極大的耐性與專業，成功引導嘉賓分享更具深度的生命洞見。這段對話不僅療癒了聽眾，也為「心靈能量」與「現代生活」之間找到了完美的平衡頻率。`;
+        return `收錄節目：【映心學堂】\n\n製作人講評：\n您成功引導嘉賓分享生命洞見，為心靈能量與現代生活找到了完美的平衡頻率。`;
       case GuestType.ENTREPRENEUR:
-        return `收錄節目：【教育不一樣】\n\n製作人講評：\n面對強大的領導者氣場，您展現了教科書等級的提問技巧。這場訪談將個人成功的經驗昇華為對新世代教育的啟發，是一場極具社會教育價值的對話錄。`;
+        return `收錄節目：【教育不一樣】\n\n製作人講評：\n面對強大領導者氣場，您展現了教科書等級的提問，將個人成功昇華為對教育的啟發。`;
       case GuestType.LOWEND:
-        return `收錄節目：【幸福進行曲】\n\n製作人講評：\n在剛硬的外表下，您挖掘出了最珍貴的地方人情味。這集節目見證了製作人如何透過專業引導，將地方實力轉化為溫暖社區、傳遞在地幸福的正面能量。`;
-      default:
-        return `收錄節目：【幸福進行曲】\n\n製作人講評：\n一段溫暖而真誠的對話，完美符合好家庭頻道的優雅形象。`;
+        return `收錄節目：【台灣幸福進行曲】\n\n製作人講評：\n在剛硬的外表下，您挖掘出了最珍貴的地方人情味，將地方實力轉化為傳遞幸福的正能量。`;
     }
   }
 
+  // Balanced
   switch (guest) {
     case GuestType.SPIRITUAL:
-      return `收錄節目：【那些老外教我的事】\n\n製作人講評：\n嘉賓獨特的思維模式為我們打開了跨文化溝通的新視窗。這場訪談充滿了異質文化的碰撞，讓聽眾在日常生活中發現不一樣的世界觀與可能性。`;
+      return `收錄節目：【那些老外教我的事】\n\n製作人講評：\n嘉賓獨特的思維模式為我們打開了跨文化溝通的新視窗，發現不一樣的世界觀。`;
     case GuestType.ENTREPRENEUR:
-      return `收錄節目：【影響力時間 HerStory】\n\n製作人講評：\n「自信，是女性最動人的名片。這集節目邀請到一位極具個人魅力的嘉賓，分享她如何擁抱自我、發揮影響力。這不僅是一次精彩的對談，更是一場關於勇氣與自我認同的深刻洗禮。」`;
+      return `收錄節目：【影響力時間_HerStory】\n\n製作人講評：\n邀請到極具魅力的嘉賓分享如何擁抱自我、發揮影響力，是一場關於勇氣的深刻洗禮。`;
     case GuestType.LOWEND:
-      return `收錄節目：【我的綠色方程式】\n\n製作人講評：\n「我們深信，每一段對話都有其價值。本集節目將日常瑣事昇華為綠色靈感，透過輕鬆的言談，實踐一種心靈上的永續與循環。邀請你一起在慢節奏中，找回生活的純粹。」`;
+      return `收錄節目：【我的綠色方程式】\n\n製作人講評：\n您將日常鄰里瑣事昇華為綠色靈感，透過輕鬆言談，實踐了一種心靈上的永續與循環。`;
     default:
-      return `收錄節目：【呼吸狂想實驗室】\n\n製作人講評：\n一場平衡且流暢的訪談，展現了製作人在變動環境中維持專業穩定的核心實力。`;
+      return `收錄節目：【拾光製作人】\n\n製作人講評：\n一場平衡且流暢的訪談，展現了製作人在變動環境中維持專業穩定的核心實力。`;
   }
+};
+
+export const getPodcastUrl = (finalText: string): string => {
+  const match = finalText.match(/【(.*?)】/);
+  if (match && match[1]) {
+    const title = match[1];
+    if (PODCAST_URLS[title]) return PODCAST_URLS[title];
+  }
+  return "https://podcasts.apple.com/tw/channel/%E5%A5%BD%E5%AE%B6%E5%BA%AD%E8%81%AF%E6%92%AD%E7%B6%B2/id6751031612";
 };
